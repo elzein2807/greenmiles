@@ -32,10 +32,10 @@ export default function Accreditation() {
                 ease: "easeOut",
                 delay: Math.min(i * 0.1, 0.2),
               }}
-              className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-[#FFFDF7] p-6 shadow-ring ring-1 ring-brand-gold/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-card hover:ring-brand-gold/50 sm:p-7"
+              className="group relative flex h-full flex-col items-center overflow-hidden rounded-3xl bg-[#FFFDF7] p-6 text-center shadow-ring ring-1 ring-brand-gold/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-card hover:ring-brand-gold/50 sm:p-7"
             >
-              {/* Logo plate */}
-              <div className="flex h-32 items-center justify-center rounded-2xl bg-ivory-50 px-6 py-4 ring-1 ring-brand-green/8 sm:h-36">
+              {/* Logo plate — preserves the original logo via object-contain */}
+              <div className="flex h-32 w-full items-center justify-center rounded-2xl bg-ivory-50 px-6 py-4 ring-1 ring-brand-green/8 sm:h-36">
                 <SafeMedia
                   src={item.logo}
                   alt={item.alt}
@@ -44,10 +44,10 @@ export default function Accreditation() {
                 />
               </div>
 
-              {/* Verified label — own line, bold, deep green, with check icon */}
-              <div className="mt-6 flex items-center gap-2 text-brand-green">
+              {/* Verified label — centered, own line, bold deep green, with check icon */}
+              <div className="mt-6 inline-flex items-center justify-center gap-2 text-[#0B3D2E]">
                 <CheckCircle2
-                  className="h-[18px] w-[18px] fill-brand-green text-[#FFFDF7]"
+                  className="h-[18px] w-[18px] fill-[#0B3D2E] text-[#FFFDF7]"
                   strokeWidth={2.4}
                 />
                 <span className="text-[13px] font-bold uppercase tracking-[0.22em]">
@@ -55,17 +55,14 @@ export default function Accreditation() {
                 </span>
               </div>
 
-              <div className="mt-2">
+              <div className="mt-3">
                 <h3 className="font-serif text-2xl leading-tight text-brand-green">
                   {item.shortName}
-                  <span className="ml-2 text-base font-normal text-brand-muted">
-                    Accredited Travel Agency
-                  </span>
                 </h3>
                 <p className="mt-1 text-[13px] font-semibold uppercase tracking-[0.18em] text-brand-gold">
                   {item.fullName}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-brand-ink/70">
+                <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-brand-ink/70">
                   {item.description}
                 </p>
               </div>
