@@ -18,7 +18,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-/** Large filled jet silhouette — scales crisply because it's vector. */
+/** Large filled jet silhouette — vector, scales crisply. Nose points to +X. */
 function JetPlane({ className }: { className?: string }) {
   return (
     <svg
@@ -27,11 +27,27 @@ function JetPlane({ className }: { className?: string }) {
       aria-hidden="true"
       className={className}
     >
-      {/* Side-view jet: fuselage, wings, tail. Subtle stylized look. */}
       <path d="M93 50 L42 38 L32 18 L26 18 L31 38 L14 41 L8 32 L4 32 L7 50 L4 68 L8 68 L14 59 L31 62 L26 82 L32 82 L42 62 L93 50 Z" />
     </svg>
   );
 }
+
+// Plane flight path keyframes — 5 stages: enter → arc → approach → pass → exit
+const desktopPath = {
+  x: ["-22vw", "8vw", "42vw", "88vw", "120vw"],
+  y: ["22vh", "6vh", "-4vh", "-12vh", "-20vh"],
+  scale: [0.45, 0.75, 1.4, 3.6, 5.2],
+  rotate: [-12, -5, 2, 7, 12],
+  opacity: [0, 1, 1, 1, 0],
+};
+
+const mobilePath = {
+  x: ["-32vw", "3vw", "32vw", "75vw", "118vw"],
+  y: ["20vh", "5vh", "-2vh", "-9vh", "-14vh"],
+  scale: [0.4, 0.65, 1.15, 2.5, 3.6],
+  rotate: [-10, -4, 2, 6, 10],
+  opacity: [0, 1, 1, 1, 0],
+};
 
 export default function IntroScene() {
   const [mounted, setMounted] = useState(false);
@@ -71,20 +87,15 @@ export default function IntroScene() {
   // Auto-dismiss timer.
   useEffect(() => {
     if (!visible) return;
-    const duration = reduce ? 1200 : 2700;
+    const duration = reduce ? 1400 : 4500;
     const t = setTimeout(() => setVisible(false), duration);
     return () => clearTimeout(t);
   }, [visible, reduce]);
 
   if (!mounted) return null;
 
-  // Responsive scale values.
-  const planeStart = isMobile ? 0.12 : 0.15;
-  const planeMid = isMobile ? 0.6 : 0.95;
-  const planeFinal = isMobile ? 4.2 : 7.5;
-  // Base plane render size — already large so even mid-scale dominates.
+  const path = isMobile ? mobilePath : desktopPath;
   const planeBaseClass = isMobile ? "h-32 w-32" : "h-48 w-48";
-  // Brand title responsive size via clamp.
   const titleFontSize = isMobile
     ? "clamp(2rem, 11vw, 3.4rem)"
     : "clamp(2.6rem, 6vw, 5.4rem)";
@@ -105,16 +116,16 @@ export default function IntroScene() {
           aria-hidden="true"
           role="presentation"
         >
-          {/* Soft gold glow behind the plane / brand */}
+          {/* Soft gold glow behind the centered brand area */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(40% 30% at 50% 50%, rgba(201,162,39,0.18) 0%, transparent 70%)",
+                "radial-gradient(42% 32% at 50% 50%, rgba(201,162,39,0.18) 0%, transparent 70%)",
             }}
           />
 
-          {/* Subtle gold route line drawn across the canvas */}
+          {/* Subtle gold flight-route line that draws across the scene */}
           <svg
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
@@ -122,7 +133,7 @@ export default function IntroScene() {
             aria-hidden="true"
           >
             <motion.path
-              d="M-4 80 C 22 58, 48 40, 72 26 S 100 6, 104 -4"
+              d="M-4 78 C 22 58, 50 38, 76 22 S 102 6, 106 -4"
               fill="none"
               stroke="#C9A227"
               strokeWidth="0.22"
@@ -136,7 +147,8 @@ export default function IntroScene() {
                   : { pathLength: 1, opacity: [0, 0.7, 0.45] }
               }
               transition={{
-                duration: reduce ? 0.35 : 1.5,
+                duration: reduce ? 0.4 : 2.6,
+                delay: reduce ? 0 : 0.3,
                 ease: "easeInOut",
               }}
             />
@@ -144,37 +156,50 @@ export default function IntroScene() {
 
           {!reduce && (
             <>
-              {/* Plane fly-through — small → mid → camera */}
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center text-brand-gold"
-                style={{
-                  filter: "drop-shadow(0 24px 60px rgba(201,162,39,0.25))",
-                  willChange: "transform, opacity",
-                }}
-                initial={{ scale: planeStart, opacity: 0, rotate: -22 }}
-                animate={{
-                  scale: [planeStart, planeMid, planeFinal, planeFinal],
-                  opacity: [0, 1, 1, 0],
-                  rotate: [-22, -18, -10, -10],
-                }}
-                transition={{
-                  duration: 1.5,
-                  times: [0, 0.55, 0.88, 1],
-                  ease: "easeIn",
-                }}
-              >
-                <JetPlane className={planeBaseClass} />
-              </motion.div>
+              {/* Plane — flies along a curved path, stays visible until exit.
+                  Outer flex centers the plane at the viewport center; the inner
+                  motion translates with x/y vw/vh relative to that center. */}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className="text-brand-gold"
+                  style={{
+                    filter: "drop-shadow(0 24px 60px rgba(201,162,39,0.28))",
+                    willChange: "transform, opacity",
+                  }}
+                  initial={{
+                    x: path.x[0],
+                    y: path.y[0],
+                    scale: path.scale[0],
+                    rotate: path.rotate[0],
+                    opacity: 0,
+                  }}
+                  animate={{
+                    x: path.x,
+                    y: path.y,
+                    scale: path.scale,
+                    rotate: path.rotate,
+                    opacity: path.opacity,
+                  }}
+                  transition={{
+                    duration: 2.7,
+                    delay: 0.4,
+                    times: [0, 0.28, 0.6, 0.85, 1],
+                    ease: "easeInOut",
+                  }}
+                >
+                  <JetPlane className={planeBaseClass} />
+                </motion.div>
+              </div>
 
-              {/* Soft ivory / gold flash wipe as the plane passes the camera */}
+              {/* Soft ivory / gold flash wipe — fires during the close camera pass */}
               <motion.div
                 className="pointer-events-none absolute inset-0"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0, 0.92, 0] }}
                 transition={{
-                  delay: 1.3,
-                  duration: 0.55,
-                  times: [0, 0.4, 1],
+                  delay: 2.4,
+                  duration: 0.7,
+                  times: [0, 0.45, 1],
                   ease: "easeOut",
                 }}
                 style={{
@@ -190,7 +215,7 @@ export default function IntroScene() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              delay: reduce ? 0.25 : 1.8,
+              delay: reduce ? 0.3 : 3.05,
               duration: 0.6,
               ease: "easeOut",
             }}
@@ -212,7 +237,7 @@ export default function IntroScene() {
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
               transition={{
-                delay: reduce ? 0.45 : 2.1,
+                delay: reduce ? 0.5 : 3.45,
                 duration: 0.45,
                 ease: "easeOut",
               }}
