@@ -260,6 +260,7 @@ export const trustStripItems: { title: string; icon: LucideIcon }[] = [
 
 export const media = {
   hero: "/images/hero-travel.jpg",
+  heroMain: "/images/hero-main.png",
   heroVideo: "/media/hero-travel.mp4",
   hotel: "/images/hotel-booking.jpg",
   airport: "/images/airport-lounge.jpg",

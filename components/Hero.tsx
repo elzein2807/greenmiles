@@ -171,13 +171,15 @@ export default function Hero() {
             >
               <div className="aspect-[5/6] sm:aspect-[4/5]">
                 <SafeMedia
-                  src={media.hero}
-                  alt="Premium coastal travel destination with sea-view terrace"
+                  src={media.heroMain}
+                  alt="Traveler at sunset overlooking a Mediterranean coastal town"
                   className="h-full w-full object-cover transition-transform duration-[1200ms] hover:scale-[1.04]"
                   loading="eager"
-                  objectPosition="center center"
+                  objectPosition="65% center"
                 />
               </div>
+              {/* Soft bottom gradient to lift the gold hairline and badge against the bright sunset */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-brand-greenDark/35 via-brand-greenDark/10 to-transparent" />
               <span className="pointer-events-none absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-ivory-50/40 bg-ivory-50/15 text-ivory-50 backdrop-blur-md">
                 <Plane className="h-4 w-4 -rotate-45" strokeWidth={1.6} />
               </span>
