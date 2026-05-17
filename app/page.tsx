@@ -9,6 +9,8 @@ import Tourism from "@/components/Tourism";
 import Reviews from "@/components/Reviews";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Contact from "@/components/Contact";
+import Branches from "@/components/Branches";
+import Accreditation from "@/components/Accreditation";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -29,6 +31,8 @@ export default function HomePage() {
         <Reviews />
         <WhyChooseUs />
         <Contact />
+        <Branches />
+        <Accreditation />
       </main>
       <Footer />
       <FloatingWhatsApp />

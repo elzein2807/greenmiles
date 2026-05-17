@@ -249,6 +249,73 @@ export const aboutFeatures: { title: string; icon: LucideIcon }[] = [
   { title: "9+ Years of Trust", icon: Award },
 ];
 
+export interface BranchPhone {
+  display: string;
+  href: string;
+}
+
+export interface Branch {
+  name: string;
+  region: string;
+  area: string;
+  phones: BranchPhone[];
+}
+
+export const branches: Branch[] = [
+  {
+    name: "First Branch",
+    region: "Bekaa",
+    area: "Niha",
+    phones: [
+      { display: "+961 71 600 663", href: "tel:+96171600663" },
+      { display: "+961 70 322 220", href: "tel:+96170322220" },
+    ],
+  },
+  {
+    name: "Second Branch",
+    region: "South",
+    area: "Zrarieh",
+    phones: [
+      { display: "+961 78 888 535", href: "tel:+96178888535" },
+    ],
+  },
+  {
+    name: "Third Branch",
+    region: "Bekaa",
+    area: "Rayak",
+    phones: [
+      { display: "+961 71 322 220", href: "tel:+96171322220" },
+    ],
+  },
+];
+
+export interface Accreditation {
+  shortName: string;
+  fullName: string;
+  description: string;
+  logo: string;
+  alt: string;
+}
+
+export const accreditations: Accreditation[] = [
+  {
+    shortName: "IATA",
+    fullName: "International Air Transport Association",
+    description:
+      "Recognition by the global organization that sets standards for international air travel.",
+    logo: "/images/verification/iata.png",
+    alt: "IATA — International Air Transport Association",
+  },
+  {
+    shortName: "ATTAL",
+    fullName: "Association of Travel & Tourist Agents in Lebanon",
+    description:
+      "Member of the Lebanese association that represents accredited travel and tourism agencies.",
+    logo: "/images/verification/attal.jpg",
+    alt: "ATTAL — Association of Travel & Tourist Agents in Lebanon",
+  },
+];
+
 export const trustStripItems: { title: string; icon: LucideIcon }[] = [
   { title: "9+ Years of Trust", icon: Award },
   { title: "Tour Packages", icon: Briefcase },

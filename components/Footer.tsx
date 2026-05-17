@@ -128,8 +128,9 @@ export default function Footer() {
           <p>
             © {year} {contact.business}. All rights reserved.
           </p>
-          <p className="text-ivory-100/60">
-            Travel support in Lebanon &amp; worldwide.
+          <p className="flex items-center gap-2 text-ivory-100/60">
+            <span className="inline-block h-1 w-1 rounded-full bg-brand-gold" aria-hidden="true" />
+            Verified by IATA &amp; ATTAL
           </p>
         </div>
       </div>
