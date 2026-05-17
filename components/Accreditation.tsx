@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import SafeMedia from "./SafeMedia";
 import SectionHeader from "./SectionHeader";
 import { accreditations } from "@/lib/data";
@@ -34,12 +34,6 @@ export default function Accreditation() {
               }}
               className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-[#FFFDF7] p-6 shadow-ring ring-1 ring-brand-gold/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-card hover:ring-brand-gold/50 sm:p-7"
             >
-              {/* Verified chip */}
-              <span className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-brand-green/8 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-green">
-                <ShieldCheck className="h-3 w-3" strokeWidth={2} />
-                Verified
-              </span>
-
               {/* Logo plate */}
               <div className="flex h-32 items-center justify-center rounded-2xl bg-ivory-50 px-6 py-4 ring-1 ring-brand-green/8 sm:h-36">
                 <SafeMedia
@@ -50,9 +44,23 @@ export default function Accreditation() {
                 />
               </div>
 
-              <div className="mt-6">
+              {/* Verified label — own line, bold, deep green, with check icon */}
+              <div className="mt-6 flex items-center gap-2 text-brand-green">
+                <CheckCircle2
+                  className="h-[18px] w-[18px] fill-brand-green text-[#FFFDF7]"
+                  strokeWidth={2.4}
+                />
+                <span className="text-[13px] font-bold uppercase tracking-[0.22em]">
+                  Verified
+                </span>
+              </div>
+
+              <div className="mt-2">
                 <h3 className="font-serif text-2xl leading-tight text-brand-green">
                   {item.shortName}
+                  <span className="ml-2 text-base font-normal text-brand-muted">
+                    Accredited Travel Agency
+                  </span>
                 </h3>
                 <p className="mt-1 text-[13px] font-semibold uppercase tracking-[0.18em] text-brand-gold">
                   {item.fullName}

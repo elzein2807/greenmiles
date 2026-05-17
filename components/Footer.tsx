@@ -1,7 +1,8 @@
 "use client";
 
-import { Facebook, Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
+import { MapPin, MessageCircle, Phone } from "lucide-react";
 import Logo from "./Logo";
+import { FacebookGlyph, InstagramGlyph } from "./SocialGlyphs";
 import { contact, navLinks } from "@/lib/data";
 
 export default function Footer() {
@@ -66,10 +67,16 @@ export default function Footer() {
                     href={contact.instagramHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-brand-ink/80 transition-colors hover:text-brand-green"
+                    className="group inline-flex items-center gap-2.5 font-semibold text-brand-green transition-colors hover:text-brand-greenDark"
                   >
-                    <Instagram className="h-4 w-4 text-brand-gold" />
-                    {contact.instagramHandle}
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-green/8 text-brand-green ring-1 ring-brand-gold/30 transition-colors group-hover:bg-brand-green group-hover:text-ivory-50">
+                      <InstagramGlyph className="h-3.5 w-3.5" />
+                    </span>
+                    <span>Instagram</span>
+                    <span className="text-brand-muted/80">·</span>
+                    <span className="font-medium text-brand-ink/75">
+                      {contact.instagramHandle}
+                    </span>
                   </a>
                 </li>
                 <li>
@@ -77,10 +84,16 @@ export default function Footer() {
                     href={contact.facebookHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-brand-ink/80 transition-colors hover:text-brand-green"
+                    className="group inline-flex items-center gap-2.5 font-semibold text-brand-green transition-colors hover:text-brand-greenDark"
                   >
-                    <Facebook className="h-4 w-4 text-brand-gold" />
-                    {contact.facebookHandle}
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-green/8 text-brand-green ring-1 ring-brand-gold/30 transition-colors group-hover:bg-brand-green group-hover:text-ivory-50">
+                      <FacebookGlyph className="h-3.5 w-3.5" />
+                    </span>
+                    <span>Facebook</span>
+                    <span className="text-brand-muted/80">·</span>
+                    <span className="font-medium text-brand-ink/75">
+                      {contact.facebookHandle}
+                    </span>
                   </a>
                 </li>
               </ul>

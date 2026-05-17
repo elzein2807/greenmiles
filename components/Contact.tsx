@@ -2,18 +2,19 @@
 
 import { motion } from "framer-motion";
 import {
-  Facebook,
-  Instagram,
   MapPin,
   MessageCircle,
   Phone,
   type LucideIcon,
 } from "lucide-react";
+import { FacebookGlyph, InstagramGlyph } from "./SocialGlyphs";
 import SectionHeader from "./SectionHeader";
 import { contact } from "@/lib/data";
 
+type IconRenderer = LucideIcon | (({ className }: { className?: string }) => React.JSX.Element);
+
 interface ContactCardProps {
-  icon: LucideIcon;
+  icon: IconRenderer;
   label: string;
   value: string;
   href: string;
@@ -46,12 +47,12 @@ function ContactCard({
             : "bg-brand-green/5 text-brand-gold ring-1 ring-brand-gold/30"
         }`}
       >
-        <Icon className="h-5 w-5" strokeWidth={1.6} />
+        <Icon className="h-5 w-5" />
       </span>
       <div className="min-w-0">
         <p
-          className={`text-xs uppercase tracking-[0.22em] ${
-            primary ? "text-ivory-100/75" : "text-brand-muted"
+          className={`text-xs font-semibold uppercase tracking-[0.22em] ${
+            primary ? "text-ivory-100/80" : "text-brand-muted"
           }`}
         >
           {label}
@@ -105,13 +106,13 @@ export default function Contact() {
             href={contact.mapsHref}
           />
           <ContactCard
-            icon={Instagram}
+            icon={InstagramGlyph}
             label="Instagram"
             value={contact.instagramHandle}
             href={contact.instagramHref}
           />
           <ContactCard
-            icon={Facebook}
+            icon={FacebookGlyph}
             label="Facebook"
             value={contact.facebookHandle}
             href={contact.facebookHref}
