@@ -1,4 +1,3 @@
-import IntroScene from "@/components/IntroScene";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
@@ -18,7 +17,6 @@ import ScrollProgress from "@/components/ScrollProgress";
 export default function HomePage() {
   return (
     <>
-      <IntroScene />
       <ScrollProgress />
       <Navbar />
       <main id="home">
