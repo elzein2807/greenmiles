@@ -311,7 +311,7 @@ export const accreditations: Accreditation[] = [
     fullName: "Association of Travel & Tourist Agents in Lebanon",
     description:
       "Member of the Lebanese association that represents accredited travel and tourism agencies.",
-    logo: "/images/verification/attal.jpg",
+    logo: "/images/verification/attal.png",
     alt: "ATTAL — Association of Travel & Tourist Agents in Lebanon",
   },
 ];
